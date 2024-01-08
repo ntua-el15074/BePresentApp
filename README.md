@@ -54,7 +54,7 @@ flutter run -d {choose your device here}
 ### Video Demo
 Check out the demo of our app:
 
-<video src="./app_demo.mp4" width=180/>
+[![Video Title](https://i9.ytimg.com/vi/jRZzNs71zAE/mq1.jpg?sqp=CIDO8awG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYACogWKAgwIABABGGUgZShlMA8=&rs=AOn4CLBUcXE99Y_Hs0XZV0OIiGbgsOu5HA)](https://www.youtube.com/watch?v=jRZzNs71zAE "Video Title")
 
 
 # Collaborators
