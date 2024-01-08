@@ -33,6 +33,12 @@ pip install -r requirements.txt
 
 ### Running the app
 You can run it either on a simulator or a web browser.
+Source the SQL code first, in the directory SQL/, open an SQL install and run:
+
+```MySQL
+source run.sql;
+```
+
 Open a terminal and run the API with:
 
 ```bash
@@ -48,9 +54,7 @@ flutter run -d {choose your device here}
 ### Video Demo
 Check out the demo of our app:
 
-<video width="320" height="240" controls>
-  <source src="app_demo.mp4" type="video/mp4">
-</video>
+<video src="./app_demo.mp4" width=180/>
 
 
 # Collaborators
