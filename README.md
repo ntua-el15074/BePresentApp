@@ -48,7 +48,9 @@ flutter run -d {choose your device here}
 ### Video Demo
 Check out the demo of our app:
 
-[![App Demo]](./app_demo.mp4)
+<video width="320" height="240" controls>
+  <source src="app_demo.mp4" type="video/mp4">
+</video>
 
 
 # Collaborators
