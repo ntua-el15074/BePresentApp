@@ -24,7 +24,7 @@ Note: The above steps are a brief overview. For detailed instructions, refer to 
 For a smoother development experience, you can use an IDE like Android Studio or Visual Studio Code with the Flutter and Dart plugins installed. Refer to the Flutter documentation for [setting up an IDE](https://flutter.dev/docs/get-started/editor).
 
 ### Python Dependencies
-You can view the `requirements.txt` file [here](link_to_requirements.txt).
+You can view the `requirements.txt` file [here](./requirements.txt).
 To install run this in your terminal:
 
 ```bash
