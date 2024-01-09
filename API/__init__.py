@@ -13,18 +13,12 @@ app.config["MYSQL_DB"] = "bepresent"
 app.config["MYSQL_USER"] = "root"
 app.config["MYSQL_PASSWORD"] = ""
 app.config["MYSQL_HOST"] = "127.0.0.1"
-#app.config["MYSQL_CHARSET"] = "utf8"
-# # app.config["MYSQL_PORT"] = 5000
-#app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
-#db = MySQL(app)
 db = MySQL(app,
            prefix="ntuaflix",
            host="localhost",
            user="root",
-           #password="trage3dy",
            db="bepresent",
-           #autocommit=True,
            cursorclass=pymysql.cursors.DictCursor
            )
 
