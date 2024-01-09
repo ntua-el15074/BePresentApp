@@ -29,6 +29,7 @@ This project leverages several technologies across its different components:
 <br>
 <br>
 <br>
+
 ## Flutter Installation Steps
 
 #### Windows
