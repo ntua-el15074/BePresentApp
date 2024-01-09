@@ -68,4 +68,9 @@ Check out the demo of our app:
 
 # Collaborators
 ## Tereza Anna Vassiliou
+Design
+![user1](https://avatars.githubusercontent.com/u/100274863?v=4)
+
 ## Peter Avgerinos
+Back-End
+![user2]([https://avatars.githubusercontent.com/u/100274863?v=4](https://avatars.githubusercontent.com/u/108369084?v=4)https://avatars.githubusercontent.com/u/108369084?v=4)
