@@ -2,6 +2,10 @@
 
 An application to NOT use your phone while with friends. Enjoy life, Be Present.
 
+<p align="center">
+  <img src="./logo.png" alt="Logo" width="200"/>
+</p>
+
 ## Pitch
 
 How many times have you been out with friends and everyone is on their phones? It has certainly happened to all of us, and in the end, we wish we had just stayed home watching a movie and eating snacks. The BePresent App has the solution! BePresent turns active presence in outings into a game. Create your avatar and invite your friends to a BePresent Session. Earn points as long as you don’t leave the app. Redeem your points by unlocking features to change clothes on your avatar or give it cool abilities.
