@@ -69,6 +69,9 @@ Check out the demo of our app:
 ### Debug APK
 This repo contains the Debug APK in the home directory of the repository under the name "app-debug.apk".
 
+### Compatability
+The app is compatible with both Android and iOS.
+
 
 # Collaborators
 
