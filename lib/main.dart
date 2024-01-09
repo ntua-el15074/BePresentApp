@@ -208,20 +208,19 @@ class SignUpPage extends StatelessWidget {
 }
 class StartingPage extends StatelessWidget {
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text(
-          'BePresent',
-          style: TextStyle(
-            fontSize: 36,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: Center(
+      child: Image.asset(
+        'assets/logo.png',
+        width: 400.0,
+        height: 400.0,
+        fit: BoxFit.contain,
       ),
-    );
-  }
+    ),
+  );
+}
 }
 
 class MenuPage extends StatefulWidget {
