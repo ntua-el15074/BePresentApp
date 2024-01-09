@@ -5,6 +5,7 @@ import 'package:camera/camera.dart';
 import 'package:bepresent/main.dart';
 import 'package:bepresent/models/inventory_database.dart';
 import 'dart:async';
+import 'dart:io';
 
 class AppLifecycleObserver extends WidgetsBindingObserver {
   void Function(double) updateUserPoints;
@@ -309,19 +310,88 @@ class _InGamePageState extends State<InGamePage> {
     }
   }
 }
-
-class CameraScreen extends StatelessWidget {
+class CameraScreen extends StatefulWidget {
   final CameraDescription camera;
 
   const CameraScreen({Key? key, required this.camera}) : super(key: key);
 
   @override
+  _CameraScreenState createState() => _CameraScreenState();
+}
+
+class _CameraScreenState extends State<CameraScreen> {
+  late CameraController _controller;
+  late Future<void> _initializeControllerFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = CameraController(
+      widget.camera,
+      ResolutionPreset.medium,
+    );
+    _initializeControllerFuture = _controller.initialize();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Future<void> _takePicture() async {
+    try {
+      await _initializeControllerFuture;
+
+      final image = await _controller.takePicture();
+
+      await Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => DisplayPictureScreen(imagePath: image.path),
+        ),
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Camera')),
-      body: Center(
-        child: Text('Your camera view goes here.'),
+      body: FutureBuilder<void>(
+        future: _initializeControllerFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return Column(
+              children: <Widget>[
+                Expanded(child: CameraPreview(_controller)),
+                FloatingActionButton(
+                  onPressed: _takePicture,
+                  child: Icon(Icons.camera),
+                ),
+              ],
+            );
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        },
       ),
     );
   }
 }
+
+class DisplayPictureScreen extends StatelessWidget {
+  final String imagePath;
+
+  const DisplayPictureScreen({Key? key, required this.imagePath}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('View your Picture')),
+      body: Image.file(File(imagePath)),
+    );
+  }
+}
+
