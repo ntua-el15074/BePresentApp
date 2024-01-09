@@ -15,7 +15,7 @@ app.config["MYSQL_PASSWORD"] = ""
 app.config["MYSQL_HOST"] = "127.0.0.1"
 
 db = MySQL(app,
-           prefix="ntuaflix",
+           prefix="bepresent",
            host="localhost",
            user="root",
            db="bepresent",
