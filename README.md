@@ -6,6 +6,8 @@ A full-stack mobile application to NOT use your phone while with friends. Enjoy 
   <img src="./logo.png" alt="Logo" width="200"/>
 </p>
 
+Disclaimer: This is not a released application, it's a demo of the app.
+
 ## Pitch
 
 How many times have you been out with friends and everyone is on their phones? It has certainly happened to all of us, and in the end, we wish we had just stayed home watching a movie and eating snacks. The BePresent App has the solution! BePresent turns active presence in outings into a game. Create your avatar and invite your friends to a BePresent Session. Earn points as long as you don’t leave the app. Redeem your points by unlocking features to change clothes on your avatar or give it cool abilities.
@@ -63,7 +65,7 @@ flutter run -d {choose your device here}
 ### Video Demo
 Check out the demo of our app:
 
-![Video Title](https://www.youtube.com/watch?v=jRZzNs71zAE "Video Title")
+[![Video Title](https://img.youtube.com/vi/jRZzNs71zAE/mq2.jpg?sqp=CKyS9awG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYACogWKAgwIABABGGUgZShlMA8=&rs=AOn4CLDq-sNX2ATVlU9GJuol93-enKteFA)](https://www.youtube.com/watch?v=jRZzNs71zAE "Video Title")
 
 
 ### Debug APK
