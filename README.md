@@ -80,3 +80,10 @@ Back-End
   <img src="https://avatars.githubusercontent.com/u/108369084?v=4" alt="Back-End" width="100"/>
 </p>
 
+<a href="https://github.com/terezann">
+  <img src="https://avatars.githubusercontent.com/u/100274863?v=4" width="50" height="50" style="border-radius:50%">
+</a>
+<a href="https://github.com/ntua-el15074">
+  <img src="https://avatars.githubusercontent.com/u/108369084?v=4" width="50" height="50" style="border-radius:50%">
+</a>
+
