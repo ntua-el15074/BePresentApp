@@ -6,6 +6,10 @@ import 'package:bepresent/main.dart';
 import 'package:bepresent/models/inventory_database.dart';
 import 'dart:async';
 import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:gallery_saver/gallery_saver.dart';
+
 
 class AppLifecycleObserver extends WidgetsBindingObserver {
   void Function(double) updateUserPoints;
@@ -339,21 +343,32 @@ class _CameraScreenState extends State<CameraScreen> {
     super.dispose();
   }
 
-  Future<void> _takePicture() async {
-    try {
-      await _initializeControllerFuture;
+Future<void> _takePicture() async {
+    await _initializeControllerFuture;
 
-      final image = await _controller.takePicture();
+    final image = await _controller.takePicture();
 
-      await Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => DisplayPictureScreen(imagePath: image.path),
-        ),
-      );
-    } catch (e) {
-      print(e);
+    await _requestPermission();
+
+    await _saveImageToGallery(image);
+  }
+
+  Future<void> _requestPermission() async {
+    var status = await Permission.storage.status;
+    if (!status.isGranted) {
+      await Permission.storage.request();
     }
   }
+
+  Future<void> _saveImageToGallery(XFile image) async {
+  await GallerySaver.saveImage(image.path).then((bool? success) {
+    if (success != null && success) {
+      print("Image saved to gallery");
+    } else {
+      print("Failed to save image");
+    }
+  });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -368,7 +383,9 @@ class _CameraScreenState extends State<CameraScreen> {
                 Expanded(child: CameraPreview(_controller)),
                 FloatingActionButton(
                   onPressed: _takePicture,
-                  child: Icon(Icons.camera),
+                  backgroundColor:  Color.fromARGB(159, 21, 49, 106),
+                  foregroundColor: Colors.white,
+                  //child: Icon(Icons.camera),
                 ),
               ],
             );
@@ -377,20 +394,6 @@ class _CameraScreenState extends State<CameraScreen> {
           }
         },
       ),
-    );
-  }
-}
-
-class DisplayPictureScreen extends StatelessWidget {
-  final String imagePath;
-
-  const DisplayPictureScreen({Key? key, required this.imagePath}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('View your Picture')),
-      body: Image.file(File(imagePath)),
     );
   }
 }

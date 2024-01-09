@@ -1,0 +1,27 @@
+lib
+├── avatar
+│   └── avatar.dart
+├── contacts
+│   └── contacts.dart
+├── game
+│   ├── call.dart
+│   ├── createsession.dart
+│   ├── in_game.dart
+│   ├── joiningsession.dart
+│   ├── start.dart
+│   └── text.dart
+├── main.dart
+├── models
+│   ├── contacts_database.dart
+│   ├── inventory_database.dart
+│   └── users.dart
+├── stats
+│   └── stats.dart
+└── store_pages
+    ├── clothingpage.dart
+    ├── glassespage.dart
+    ├── hatspage.dart
+    ├── snoutpage.dart
+    └── store.dart
+
+7 directories, 18 files
