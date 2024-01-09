@@ -1,6 +1,8 @@
 import '../models/inventory_database.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 
 class UserDatabase {
   static int user_id = 0;
@@ -10,7 +12,15 @@ class UserDatabase {
 
 
 Future<bool> authenticateUser(String username, String password) async {
-  var url = Uri.parse('http://127.0.0.1:9876/bepresent/authenticateuser');
+  var url;
+
+  if (Platform.isIOS || kIsWeb) {
+    url = Uri.parse('http://127.0.0.1:9876/bepresent/authenticateuser');
+  }
+  else if (Platform.isAndroid) {
+    url = Uri.parse('http://10.0.2.2:9876/bepresent/authenticateuser');
+  }
+  print(url);
   var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
   var body = {'username': username, 'password': password};
   var response = await http.post(url, headers: headers, body: body);
@@ -37,7 +47,14 @@ Future<bool> authenticateUser(String username, String password) async {
 }
 
   Future<void> addUser(String username, String password, String email, double money) async {
-  var url = Uri.parse('http://127.0.0.1:9876/bepresent/adduser');
+  var url;
+
+  if (Platform.isIOS || kIsWeb) {
+    url = Uri.parse('http://127.0.0.1:9876/bepresent/adduser');
+  }
+  else if (Platform.isAndroid) {
+    url = Uri.parse('http://10.0.2.2:9876/bepresent/adduser');
+  }
 
   try {
     var response = await http.post(
@@ -64,7 +81,14 @@ Future<bool> authenticateUser(String username, String password) async {
 }
 
   static Future<void> getUserContacts(int userId) async {
-  var url = Uri.parse('http://127.0.0.1:9876/bepresent/getusercontacts');
+  var url;
+
+  if (Platform.isIOS || kIsWeb) {
+    url = Uri.parse('http://127.0.0.1:9876/bepresent/getusercontacts');
+  }
+  else if (Platform.isAndroid) {
+    url = Uri.parse('http://10.0.2.2:9876/bepresent/getusercontacts');
+  }
 
   try {
     var response = await http.post(
@@ -87,7 +111,14 @@ Future<bool> authenticateUser(String username, String password) async {
 }
 
   static Future<void> addtoUserInventory(int userId, ClothingItem item) async {
-  var url = Uri.parse('http://127.0.0.1:9876/bepresent/additem');
+  var url;
+
+  if (Platform.isIOS || kIsWeb) {
+    url = Uri.parse('http://127.0.0.1:9876/bepresent/additem');
+  }
+  else if (Platform.isAndroid) {
+    url = Uri.parse('http://10.0.2.2:9876/bepresent/additem');
+  }
 
   try {
     var response = await http.post(
@@ -117,7 +148,14 @@ Future<bool> authenticateUser(String username, String password) async {
 }
 
   static Future<void> addtoUserContacts(int userId, String name, String phone) async {
-  var url = Uri.parse('http://127.0.0.1:9876/bepresent/addcontact');
+  var url;
+
+  if (Platform.isIOS || kIsWeb) {
+    url = Uri.parse('http://127.0.0.1:9876/bepresent/addcontact');
+  }
+  else if (Platform.isAndroid) {
+    url = Uri.parse('http://10.0.2.2:9876/bepresent/addcontact');
+  }
 
   try {
     var response = await http.post(
@@ -140,7 +178,14 @@ Future<bool> authenticateUser(String username, String password) async {
 }
 
   static Future<void> deleteFromUserContacts(int userId, String? name, String? phone) async {
-  var url = Uri.parse('http://127.0.0.1:9876/bepresent/deletecontact');
+  var url;
+
+  if (Platform.isIOS || kIsWeb) {
+    url = Uri.parse('http://127.0.0.1:9876/bepresent/deletecontact');
+  }
+  else if (Platform.isAndroid) {
+    url = Uri.parse('http://10.0.2.2:9876/bepresent/deletecontact');
+  }
 
   try {
     var response = await http.post(
@@ -163,7 +208,14 @@ Future<bool> authenticateUser(String username, String password) async {
 }
 
 static Future<void> getUserInventoryList(int userId) async {
-  var url = Uri.parse('http://127.0.0.1:9876/bepresent/getuserinventory');
+  var url;
+
+  if (Platform.isIOS || kIsWeb) {
+    url = Uri.parse('http://127.0.0.1:9876/bepresent/getuserinventory');
+  }
+  else if (Platform.isAndroid) {
+    url = Uri.parse('http://10.0.2.2:9876/bepresent/getuserinventory');
+  }
 
   try {
     var response = await http.post(

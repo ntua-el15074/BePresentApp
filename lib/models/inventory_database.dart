@@ -1,5 +1,7 @@
 import 'package:bepresent/models/users.dart';
 import 'package:http/http.dart' as http;
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 
 class ClothingItem {
   final String category;
@@ -69,7 +71,14 @@ class AvatarInventoryDatabase {
   }
 
 static Future<void> addMoneyToUser(int userId) async {
-  var url = Uri.parse('http://127.0.0.1:9876/bepresent/addmoney');
+  var url;
+
+  if (Platform.isIOS || kIsWeb) {
+    url = Uri.parse('http://127.0.0.1:9876/bepresent/addmoney');
+  }
+  else if (Platform.isAndroid) {
+    url = Uri.parse('http://10.0.2.2:9876/bepresent/addmoney');
+  }
 
   try {
     var response = await http.post(
