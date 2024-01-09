@@ -2,6 +2,11 @@
 
 An application to NOT use your phone while with friends. Enjoy life, Be Present.
 
+## Pitch
+
+How many times have you been out with friends and everyone is on their phones? It has certainly happened to all of us, and in the end, we wish we had just stayed home watching a movie and eating snacks. The BePresent App has the solution! BePresent turns active presence in outings into a game. Create your avatar and invite your friends to a BePresent Session. Earn points as long as you don’t leave the app. Redeem your points by unlocking features to change clothes on your avatar or give it cool abilities.
+
+
 ### Flutter Installation Steps
 
 #### Windows
@@ -24,7 +29,7 @@ Note: The above steps are a brief overview. For detailed instructions, refer to 
 For a smoother development experience, you can use an IDE like Android Studio or Visual Studio Code with the Flutter and Dart plugins installed. Refer to the Flutter documentation for [setting up an IDE](https://flutter.dev/docs/get-started/editor).
 
 ### Python Dependencies
-You can view the `requirements.txt` file [here](link_to_requirements.txt).
+You can view the `requirements.txt` file [here](./requirements.txt).
 To install run this in your terminal:
 
 ```bash
