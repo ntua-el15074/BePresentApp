@@ -73,4 +73,4 @@ Design
 
 ## Peter Avgerinos
 Back-End
-![user2]([https://avatars.githubusercontent.com/u/100274863?v=4](https://avatars.githubusercontent.com/u/108369084?v=4)https://avatars.githubusercontent.com/u/108369084?v=4)
+![user2](https://avatars.githubusercontent.com/u/108369084?v=4)
