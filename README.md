@@ -3,7 +3,7 @@
 An application to NOT use your phone while with friends. Enjoy life, Be Present.
 
 <p align="center">
-  <img src="URL_or_path_to_logo.png" alt="Logo" width="200"/>
+  <img src="./logo.png" alt="Logo" width="200"/>
 </p>
 
 ## Pitch
