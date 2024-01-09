@@ -1,6 +1,6 @@
 # BePresent
 
-An application to NOT use your phone while with friends. Enjoy life, Be Present.
+A full-stack mobile application to NOT use your phone while with friends. Enjoy life, Be Present.
 
 <p align="center">
   <img src="./logo.png" alt="Logo" width="200"/>
