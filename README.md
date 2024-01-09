@@ -26,8 +26,10 @@ This project leverages several technologies across its different components:
 #### Database
 - **MySQL**: The database system used for storing and retrieving data.
 
-
-### Flutter Installation Steps
+<br>
+<br>
+<br>
+## Flutter Installation Steps
 
 #### Windows
 1. Download the Flutter SDK from the [Flutter website](https://flutter.dev/docs/get-started/install/windows).
@@ -44,11 +46,11 @@ This project leverages several technologies across its different components:
 Note: The above steps are a brief overview. For detailed instructions, refer to the official Flutter installation guides for [Windows](https://flutter.dev/docs/get-started/install/windows), [macOS](https://flutter.dev/docs/get-started/install/macos), and [Linux](https://flutter.dev/docs/get-started/install/linux).
 
 
-### IDE Setup
+## IDE Setup
 
 For a smoother development experience, you can use an IDE like Android Studio or Visual Studio Code with the Flutter and Dart plugins installed. Refer to the Flutter documentation for [setting up an IDE](https://flutter.dev/docs/get-started/editor).
 
-### Python Dependencies
+## Python Dependencies
 You can view the `requirements.txt` file [here](./requirements.txt).
 To install run this in your terminal:
 
@@ -56,7 +58,7 @@ To install run this in your terminal:
 pip install -r requirements.txt
 ```
 
-### Running the app
+## Running the app
 You can run it either on a simulator or a web browser.
 Source the SQL code first, in the directory SQL/, open an SQL install and run:
 
@@ -76,16 +78,16 @@ Now you can run:
 flutter run -d {choose your device here}
 ```
 
-### Video Demo
+## Video Demo
 Check out the demo of our app:
 
 [![Video Title](https://img.youtube.com/vi/jRZzNs71zAE/mq2.jpg?sqp=CKyS9awG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYACogWKAgwIABABGGUgZShlMA8=&rs=AOn4CLDq-sNX2ATVlU9GJuol93-enKteFA)](https://www.youtube.com/watch?v=jRZzNs71zAE "Video Title")
 
 
-### Debug APK
+## Debug APK
 This repo contains the Debug APK in the home directory of the repository under the name "app-debug.apk".
 
-### Compatability
+## Compatability
 The app is compatible with both Android and iOS.
 
 # Collaborators
