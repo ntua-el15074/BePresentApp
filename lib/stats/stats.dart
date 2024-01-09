@@ -92,10 +92,10 @@ class _StatsPageState extends State<StatsPage> {
                           style: TextStyle(fontSize: 18),
                         ),
                         SizedBox(height: 5),
-                        Text(
-                          '${minutesElapsed} minutes played',
-                          style: TextStyle(fontSize: 18),
-                        ),
+                        // Text(
+                        //   '${minutesElapsed} minutes played',
+                        //   style: TextStyle(fontSize: 18),
+                        // ),
                       ],
                     ),
                   ),
