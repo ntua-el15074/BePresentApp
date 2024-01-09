@@ -74,6 +74,20 @@ This repo contains the Debug APK in the home directory of the repository under t
 ### Compatability
 The app is compatible with both Android and iOS.
 
+## Technologies Used
+This project leverages several technologies across its different components:
+
+### User Interface
+- **Flutter**: Used for building the native user interface.
+- **Dart**: The programming language used alongside Flutter.
+
+### Backend API
+- **Python**: The core programming language for backend logic.
+- **Flask**: A lightweight Python web framework used for handling API requests.
+
+### Database
+- **MySQL**: The database system used for storing and retrieving data.
+
 
 # Collaborators
 
