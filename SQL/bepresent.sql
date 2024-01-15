@@ -31,3 +31,19 @@ CREATE TABLE contacts (
     phonenumber varchar (255),
     FOREIGN KEY (user_id) REFERENCES app_user(id) ON DELETE CASCADE
 );
+
+CREATE TABLE sessions (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    creator_id INT,
+    name varchar(255),
+    password varchar(255),
+    FOREIGN KEY (creator_id) REFERENCES app_user(id) ON DELETE CASCADE
+);
+
+CREATE TABLE session_users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    session_id INT,
+    FOREIGN KEY (user_id) REFERENCES app_user(id) ON DELETE CASCADE,
+    FOREIGN KEY (session_id) REFERENCES sessions(id) ON DELETE CASCADE
+);

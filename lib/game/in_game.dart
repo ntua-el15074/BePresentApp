@@ -1,3 +1,4 @@
+import 'package:bepresent/models/sessions.dart';
 import 'package:flutter/material.dart';
 import 'call.dart';
 import 'text.dart';
@@ -8,7 +9,12 @@ import 'dart:async';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import '../models/users.dart';
 import 'package:gallery_saver/gallery_saver.dart';
+
+Future<void> _updateSessionUsers() async {
+    await SessionDatabase.getSessionUsers();
+}
 
 
 class AppLifecycleObserver extends WidgetsBindingObserver {
@@ -72,7 +78,9 @@ class _InGamePageState extends State<InGamePage> {
         lindaPoints += 0.01;
         userPoints += 0.01;
       });
-    });
+      _updateSessionUsers();
+      
+      });
   }
 
   @override
@@ -145,7 +153,6 @@ class _InGamePageState extends State<InGamePage> {
         child: Stack(
           alignment: Alignment.topCenter,
           children: [
-    // John's section
     Positioned(
       top: -40,
       left: -75,
@@ -158,7 +165,7 @@ class _InGamePageState extends State<InGamePage> {
           ),
           Column(
             children: [
-              Text('John'),
+              Text('${SessionDatabase.left_user}'),
               Text('${johnPoints.toStringAsFixed(2)}'),
             ],
           ),
@@ -178,7 +185,7 @@ class _InGamePageState extends State<InGamePage> {
           ),
           Column(
             children: [
-              Text('Linda'),
+              Text('${SessionDatabase.right_user}'),
               Text('${lindaPoints.toStringAsFixed(2)}'),
             ],
           ),
@@ -259,6 +266,11 @@ class _InGamePageState extends State<InGamePage> {
               onPressed: () async {
                 dispose();
                 await AvatarInventoryDatabase.addMoney(userPoints);
+                if (SessionDatabase.creator_id == UserDatabase.user_id) {
+                  await SessionDatabase.deleteSession(SessionDatabase.SessionName, SessionDatabase.SessionPassword);
+                } else {
+                  await SessionDatabase.disconnectFromSession();
+                }
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => MenuPage()),

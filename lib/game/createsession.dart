@@ -2,6 +2,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:bepresent/game/in_game.dart';
 import 'package:flutter/services.dart';
+import '../models/sessions.dart';
+import '../models/users.dart';
 
 void copyToClipboard(String text) async {
   try {
@@ -183,8 +185,10 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: _sessionName.isNotEmpty && _sessionType.isNotEmpty
-                  ? () {
+                  ? () async {
                       String generatedCode = generateRandomCode();
+                      await SessionDatabase.addSession(UserDatabase.user_id, _sessionName, generatedCode);
+                      await SessionDatabase.getSessionUsers();
                       Navigator.push(
                         context,
                         MaterialPageRoute(

@@ -1,8 +1,11 @@
+import 'package:bepresent/models/sessions.dart';
 import 'package:flutter/material.dart';
 import 'package:bepresent/game/in_game.dart';
+import '../main.dart';
 
 class JoiningGamePage extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +19,13 @@ class JoiningGamePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextField(
+              controller: nameController,
+              decoration: InputDecoration(
+                hintText: 'Enter Name',
+              ),
+            ),
+            SizedBox(height: 20),
+            TextField(
               controller: passwordController,
               decoration: InputDecoration(
                 hintText: 'Enter Password',
@@ -23,16 +33,43 @@ class JoiningGamePage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => WaitingPage(
-                      password: passwordController.text,
-                    ),
-                  ),
-                );
-              },
+              onPressed: () async {
+    if (await SessionDatabase.connectToSession(nameController.text, passwordController.text)) {
+      await SessionDatabase.getSessionUsers();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => WaitingPage(password: passwordController.text),
+        ),
+      );
+    } else {
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Session Full"),
+            content: Text("The session is full. Returning to the main menu."),
+            actions: <Widget>[
+              ElevatedButton(
+                child: Text("OK"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MenuPage(),
+        ),
+      );
+    }
+  },
+
               style: ElevatedButton.styleFrom(
                 onPrimary: Colors.white,
                 primary: Color.fromARGB(

@@ -10,6 +10,9 @@ class UserDatabase {
   static List<Map<String, String>> contacts = [];
   static List<ClothingItem> inventoryItems = [];
 
+  static int getUserId() {
+    return user_id;
+  }
 
 Future<bool> authenticateUser(String username, String password) async {
   var url;

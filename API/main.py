@@ -22,7 +22,15 @@ api.add_resource(addUser,'/adduser')
 api.add_resource(getUserContacts,'/getusercontacts')
 api.add_resource(getUserInventory,'/getuserinventory')
 
-if __name__ == "__main__":  
+#Session
+api.add_resource(connectToSession,'/connecttosession')
+api.add_resource(disconnectFromSession,'/disconnectfromsession')
+api.add_resource(addSession,'/addsession')
+api.add_resource(deleteSession,'/deletesession')
+api.add_resource(getUsersInSession, '/getusersinsession')
+
+
+if __name__ == "__main__":
     # debug mode: every time we change it restarts the server
     app.run(debug=True, port=9876)
 

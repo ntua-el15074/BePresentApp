@@ -213,3 +213,195 @@ class getUserInventory(Resource):
         else:
             return {'error': 'patata happened'}, 400
 
+class addSession(Resource):
+    @cross_origin()
+    def post(self):
+        creator_id = request.form.get("creator_id")
+        name = request.form.get("name")
+        password = request.form.get("password")
+
+        if not creator_id:
+            return {"error":"No creator_id"},500
+        if not name:
+            return {"error":"No name"},500
+        if not password:
+            return {"error":"No password"},500
+
+        query = f'''INSERT INTO sessions (creator_id, name, password)
+                    VALUES ({creator_id},"{name}","{password}")'''
+
+
+        try:
+            cur = db.get_db().cursor()
+            cur.execute(query)
+            db.get_db().commit()
+            cur.close()
+
+
+            new_query = f'''SELECT * FROM sessions WHERE name='{name}' AND password='{password}';'''
+
+            cur = db.get_db().cursor()
+            cur.execute(new_query)
+            get_session = cur.fetchall()
+            print(get_session)
+            cur.close()
+
+            if get_session:
+                session_id = get_session[0]["id"]
+
+                inner_query = f'''INSERT INTO session_users (user_id, session_id)
+                                    VALUES ({creator_id},{session_id})'''
+
+                cur = db.get_db().cursor()
+                cur.execute(inner_query)
+                db.get_db().commit()
+                cur.close()
+
+                return {"status":"Session added"}, 200
+            else:
+                return {"error":"Something went wrong"},500
+        except:
+            return {"error":"Something went wrong"}, 500
+
+class deleteSession(Resource):
+    @cross_origin()
+    def post(self):
+        name = request.form.get("name")
+        password = request.form.get("password")
+
+        if not name:
+            return {'error':'no name'},500
+        if not password:
+            return {'error':'no password'},500
+
+        query = f'''DELETE FROM sessions WHERE name = '{name}' AND password = '{password}';'''
+
+        try:
+            cur = db.get_db().cursor()
+            cur.execute(query)
+            db.get_db().commit()
+            cur.close()
+
+            return {"status":"Session deleted"}, 200
+        except:
+            return {'error':"Something went wrong"},500
+
+
+class connectToSession(Resource):
+    @cross_origin()
+    def post(self):
+        user_id = request.form.get("user_id")
+        name = request.form.get("name")
+        password = request.form.get("password")
+        count_query = f'''SELECT COUNT(*) as count FROM app_user
+                        JOIN session_users ON app_user.id = session_users.user_id
+                        JOIN sessions ON session_users.session_id = sessions.id
+                        WHERE sessions.name = '{name}'
+                        AND sessions.password = '{password}';'''
+        
+        cur = db.get_db().cursor()
+        cur.execute(count_query)
+        get_count = cur.fetchone()
+        cur.close()
+
+        if get_count["count"] >= 3:
+            return {"error":"can't join session"},500
+
+
+        query = f'''SELECT * FROM sessions WHERE name="{name}" AND
+                    password="{password}"'''
+
+
+        try:
+            cur = db.get_db().cursor()
+            cur.execute(query)
+            get_session = cur.fetchall()
+            print(get_session)
+            cur.close()
+        except:
+            return {"Validity": False},500
+
+
+        if get_session:
+            session_id = get_session[0]["id"]
+            creator_id = get_session[0]["creator_id"]
+
+            inner_query = f'''INSERT INTO session_users (user_id, session_id)
+                                VALUES ({user_id},{session_id})'''
+            try:
+                cur = db.get_db().cursor()
+                cur.execute(inner_query)
+                db.get_db().commit()
+                cur.close()
+            except:
+                return {"Validity": False},500
+
+            response_data = {'Validity': True, 'creator_id': creator_id};
+            response = make_response(jsonify(response_data), 200)
+            return response
+        else:
+            response_data = {'Validity' : False}
+            response = make_response(jsonify(response_data), 500)
+            return response
+
+class disconnectFromSession(Resource):
+    @cross_origin()
+    def post(self):
+        user_id = request.form.get("user_id")
+        name = request.form.get("name")
+        password = request.form.get("password")
+
+        query = f'''SELECT * FROM sessions WHERE name="{name}" AND
+                    password="{password}"'''
+
+        try:
+            cur = db.get_db().cursor()
+            cur.execute(query)
+            get_session = cur.fetchall()
+            cur.close()
+        except:
+            return {"error": "Wrong name or password"},500
+
+
+        if get_session:
+            session_id = get_session[0]["id"]
+
+            inner_query = f'''DELETE FROM session_users WHERE user_id = {user_id} AND session_id = {session_id};'''
+
+            try:
+                cur = db.get_db().cursor()
+                cur.execute(inner_query)
+                db.get_db().commit()
+                cur.close()
+            except:
+                return {"Validity": False},500
+
+            return {"status":"You have disconnected successfully"},200
+        else:
+            return {"error":"Could not disconnect from session"},500
+
+class getUsersInSession(Resource):
+    @cross_origin()
+    def post(self):
+        name = request.form.get("name")
+        password = request.form.get("password")
+        print(name)
+        print(password)
+
+        query = f'''SELECT app_user.* FROM app_user
+                    JOIN session_users ON app_user.id = session_users.user_id
+                    JOIN sessions ON session_users.session_id = sessions.id
+                    WHERE sessions.name = '{name}'
+                    AND sessions.password = '{password}';'''
+
+        try:
+            cur = db.get_db().cursor()
+            cur.execute(query)
+            users = cur.fetchall()
+            cur.close()
+
+            user_list = [user for user in users]
+
+            return {'user_list': user_list},200
+        except:
+            return {'error':'Something went wrong'},500
