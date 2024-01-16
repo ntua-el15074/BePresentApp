@@ -1,4 +1,5 @@
 import 'package:bepresent/models/users.dart';
+import 'package:flutter/material.dart';
 import '../models/inventory_database.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -9,12 +10,14 @@ class UserInSession {
   final int? user_id;
   final String? username;
   final String? path;
+  final double? userPoints;
   final int? state;
 
   UserInSession({
     required this.user_id,
     required this.username,
     required this.path,
+    required this.userPoints,
     required this.state,
   });
 }
@@ -25,8 +28,8 @@ class SessionDatabase {
   static String? SessionPassword;
   static List<UserInSession> users_in_session = [];
   static UserInSession? bottom_user;
-  static UserInSession? left_user = UserInSession(user_id: 0, username: 'Linda', path:'assets/Tbaotbao.png', state: 1);
-  static UserInSession? right_user = UserInSession(user_id: 0, username: 'John', path:'assets/Tbaotbao.png', state: 1);
+  static UserInSession? left_user = UserInSession(user_id: 0, username: 'Linda', path:'assets/Tbaotbao.png', state: 1, userPoints: 0);
+  static UserInSession? right_user = UserInSession(user_id: 0, username: 'John', path:'assets/Tbaotbao.png', state: 1, userPoints: 0);
 
   static Future<void> addSession(int user_id, String? name, String? password) async {
     var url;
@@ -82,6 +85,7 @@ class SessionDatabase {
 
         if (response.statusCode == 200) {
           creator_id = 0;
+          await updateUserPoints(0);
           print("Session deleted successfully");
         } else {
           print('Failed to delete Session. Status code: ${response.statusCode}');
@@ -154,6 +158,7 @@ class SessionDatabase {
 
         if (response.statusCode == 200) {
           creator_id = 0;
+          await updateUserPoints(0);
           print("Disconnected from Session");
         } else {
           print('Failed to disconnect from Session. Status code: ${response.statusCode}');
@@ -203,6 +208,7 @@ class SessionDatabase {
           bottom_user = UserInSession(user_id: int.parse(userinSession['id'].toString()),
                                       username: userinSession['username'].toString(),
                                       path: userinSession['image'].toString(),
+                                      userPoints: double.parse(userinSession['userPoints'].toString()),
                                       state : int.parse(userinSession['userState'].toString()));
 
         } else {
@@ -215,6 +221,7 @@ class SessionDatabase {
           users_in_session.add(UserInSession(user_id: int.parse(userinSession['id'].toString()),
                                       username: userinSession['username'].toString(),
                                       path: userinSession['image'].toString(),
+                                      userPoints: double.parse(userinSession['userPoints'].toString()),
                                       state : int.parse(userinSession['userState'].toString())));
           }
       }
@@ -222,13 +229,13 @@ class SessionDatabase {
       try{
         left_user = users_in_session[0];
       } catch (e) {
-        left_user = UserInSession(user_id: 0, username: 'Linda', path:'assets/Tbaotbao.png', state: 1);
+        left_user = UserInSession(user_id: 0, username: 'Linda', path:'assets/Tbaotbao.png', state: 1, userPoints: 0);
       }
 
       try{
         right_user = users_in_session[1];
       } catch (e) {
-        right_user = UserInSession(user_id: 0, username: 'John', path:'assets/Tbaotbao.png', state: 1);
+        right_user = UserInSession(user_id: 0, username: 'John', path:'assets/Tbaotbao.png', state: 1, userPoints: 0);
       }
 
       print('Added users in session');
@@ -298,4 +305,38 @@ static Future<void> updateUserStateDB(int state) async {
     }
 
 }
+
+static Future<void> updateUserPoints(double? points) async {
+    var url;
+
+    if (Platform.isIOS || kIsWeb) {
+      url = Uri.parse('http://127.0.0.1:9876/bepresent/updateuserpoints');
+    }
+    else if (Platform.isAndroid) {
+      url = Uri.parse('http://10.0.2.2:9876/bepresent/updateuserpoints');
+    }
+
+    try {
+      var response = await http.post(
+        url,
+        body: {
+          'user_id': UserDatabase.user_id.toString(),
+          'userPoints': points.toString(),
+        }
+      ); 
+      
+    if (response.statusCode == 200) {
+      print('Points were updated successfully');
+    } else {
+      print('There was an issue with updatting the points');
+    }
+    } catch (e) {
+      print('Error $e');
+    }
+
+
+}
+
+
+
 }

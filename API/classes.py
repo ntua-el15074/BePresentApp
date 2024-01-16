@@ -461,3 +461,20 @@ class SetUserState(Resource):
         except:
             return {"error":"Could not update state"},500
 
+class UpdateUserPoints(Resource):
+    @cross_origin()
+    def post(self):
+        user_id = request.form.get("user_id")
+        userPoints = request.form.get("userPoints")
+
+        query = f'''UPDATE app_user SET userPoints ="{userPoints}" WHERE id = {user_id};'''
+
+        try:
+            cur = db.get_db().cursor()
+            cur.execute(query)
+            db.get_db().commit()
+            cur.close()
+            return {"status":"Points updated"},200
+        except:
+            return {"error":"Could not update points"},500
+

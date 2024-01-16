@@ -23,6 +23,7 @@ api.add_resource(getUserContacts,'/getusercontacts')
 api.add_resource(getUserInventory,'/getuserinventory')
 api.add_resource(updateSavedItem, '/updatesaveditem')
 api.add_resource(SetUserState, '/setuserstate')
+api.add_resource(UpdateUserPoints, '/updateuserpoints')
 
 #Session
 api.add_resource(connectToSession,'/connecttosession')

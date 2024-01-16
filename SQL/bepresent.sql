@@ -8,7 +8,8 @@ CREATE TABLE app_user (
     email varchar(255),
     money INT,
     image varchar(255) DEFAULT 'None',
-    userState INT DEFAULT 1
+    userState INT DEFAULT 1,
+    userPoints FLOAT DEFAULT 0
 );
 
 CREATE TABLE inventory (

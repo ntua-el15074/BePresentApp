@@ -20,6 +20,11 @@ Future<void> _updateSessionUsers() async {
   await SessionDatabase.updateUserStateDB(state);
  }
 
+ Future<void> _updateUserPointsDB(double? points) async {
+  await SessionDatabase.updateUserPoints(points);
+
+ }
+
 
 class AppLifecycleObserver extends WidgetsBindingObserver {
   void Function(double) updateUserPoints;
@@ -49,9 +54,9 @@ class InGamePage extends StatefulWidget {
 
 class _InGamePageState extends State<InGamePage> {
   ClothingItem? selectedClothingItem = AvatarInventoryDatabase.savedItem;
-  double johnPoints = 0;
-  double lindaPoints = 0;
-  double userPoints = 0;
+  double? johnPoints = 0;
+  double? lindaPoints = 0;
+  double? userPoints = 0;
   late Timer _timer;
 
    late AppLifecycleObserver _appLifecycleObserver;
@@ -73,30 +78,48 @@ class _InGamePageState extends State<InGamePage> {
 
   void _updateUserPoints(double value) {
     setState(() {
-      userPoints += value;
+      // userPoints += value;
+      userPoints = (userPoints ?? 0) + value;
     });
   }
 
   void _startTimer() {
     _timer = Timer.periodic(Duration(milliseconds: 500), (timer) {
       setState(() {
-        if (SessionDatabase.left_user?.state == 1) {
-          johnPoints += 0.01;
+        if (SessionDatabase.left_user?.user_id != 0) {
+          johnPoints = SessionDatabase.left_user?.userPoints;
         } else {
-          johnPoints -= 0.01;
+          if (SessionDatabase.left_user?.state == 1) {
+            // johnPoints! += 0.01;
+            johnPoints = (johnPoints ?? 0) + 0.01;
+          } else {
+            // johnPoints?. -= 0.01;
+            johnPoints = (johnPoints ?? 0) - 0.01;
+          }
         }
-        if (SessionDatabase.right_user?.state == 1) {
-          lindaPoints += 0.01;
+
+        if (SessionDatabase.right_user?.user_id != 0) {
+          lindaPoints = SessionDatabase.right_user?.userPoints;
         } else {
-          lindaPoints -= 0.01;
+          if (SessionDatabase.right_user?.state == 1) {
+            // lindaPoints += 0.01;
+            lindaPoints = (lindaPoints ?? 0) + 0.01;
+          } else {
+            // lindaPoints -= 0.01;
+            lindaPoints = (lindaPoints ?? 0) - 0.01;
+          }
         }
+
         if (SessionDatabase.bottom_user?.state == 1) {
-          userPoints += 0.01;
+          // userPoints += 0.01 ;
+          userPoints = (userPoints ?? 0) + 0.01;
         } else {
-          userPoints -= 0.01;
+          // userPoints -= 0.01;
+          userPoints = (userPoints ?? 0) - 0.01;
         }
       });
       _updateSessionUsers();
+      _updateUserPointsDB(userPoints);
       
       });
   }
@@ -184,7 +207,7 @@ class _InGamePageState extends State<InGamePage> {
           Column(
             children: [
               Text('${SessionDatabase.left_user?.username}'),
-              Text('${johnPoints.toStringAsFixed(2)}'),
+              Text('${johnPoints!.toStringAsFixed(2)}'),
             ],
           ),
         ],
@@ -204,7 +227,7 @@ class _InGamePageState extends State<InGamePage> {
           Column(
             children: [
               Text('${SessionDatabase.right_user?.username}'),
-              Text('${lindaPoints.toStringAsFixed(2)}'),
+              Text('${lindaPoints!.toStringAsFixed(2)}'),
             ],
           ),
         ],
@@ -223,7 +246,7 @@ class _InGamePageState extends State<InGamePage> {
           Column(
             children: [
               Text('You'),
-              Text('${userPoints.toStringAsFixed(2)}'),
+              Text('${userPoints!.toStringAsFixed(2)}'),
             ],
           ),
         ],
@@ -283,7 +306,7 @@ class _InGamePageState extends State<InGamePage> {
             TextButton(
               onPressed: () async {
                 dispose();
-                await AvatarInventoryDatabase.addMoney(userPoints);
+                await AvatarInventoryDatabase.addMoney(userPoints ?? 0);
                 if (SessionDatabase.creator_id == UserDatabase.user_id) {
                   await SessionDatabase.deleteSession(SessionDatabase.SessionName, SessionDatabase.SessionPassword);
                 } else {
