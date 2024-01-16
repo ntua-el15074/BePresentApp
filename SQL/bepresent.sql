@@ -3,10 +3,12 @@ USE bepresent;
 
 CREATE TABLE app_user (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    username varchar(255),
+    username varchar(255) UNIQUE,
     password varchar(255),
     email varchar(255),
-    money INT
+    money INT,
+    image varchar(255) DEFAULT 'None',
+    userState INT DEFAULT 1
 );
 
 CREATE TABLE inventory (

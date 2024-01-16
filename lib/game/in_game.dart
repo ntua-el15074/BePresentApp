@@ -16,6 +16,10 @@ Future<void> _updateSessionUsers() async {
     await SessionDatabase.getSessionUsers();
 }
 
+ Future<void> _updateUserState(int state) async {
+  await SessionDatabase.updateUserStateDB(state);
+ }
+
 
 class AppLifecycleObserver extends WidgetsBindingObserver {
   void Function(double) updateUserPoints;
@@ -29,8 +33,10 @@ class AppLifecycleObserver extends WidgetsBindingObserver {
     if (state == AppLifecycleState.paused) {
       _backgroundTimer = Timer.periodic(Duration(milliseconds: 1000), (timer) {
         updateUserPoints(-0.1);
+        _updateUserState(0);
       });
     } else if (state == AppLifecycleState.resumed) {
+      _updateUserState(1);
       _backgroundTimer.cancel();
     }
   }
@@ -74,9 +80,21 @@ class _InGamePageState extends State<InGamePage> {
   void _startTimer() {
     _timer = Timer.periodic(Duration(milliseconds: 500), (timer) {
       setState(() {
-        johnPoints += 0.01;
-        lindaPoints += 0.01;
-        userPoints += 0.01;
+        if (SessionDatabase.left_user?.state == 1) {
+          johnPoints += 0.01;
+        } else {
+          johnPoints -= 0.01;
+        }
+        if (SessionDatabase.right_user?.state == 1) {
+          lindaPoints += 0.01;
+        } else {
+          lindaPoints -= 0.01;
+        }
+        if (SessionDatabase.bottom_user?.state == 1) {
+          userPoints += 0.01;
+        } else {
+          userPoints -= 0.01;
+        }
       });
       _updateSessionUsers();
       
@@ -159,13 +177,13 @@ class _InGamePageState extends State<InGamePage> {
       child: Column(
         children: [
           Image.asset(
-            'assets/Tbaotbao.png',
+            '${SessionDatabase.left_user?.path}',
             width: 250,
             height: 250,
           ),
           Column(
             children: [
-              Text('${SessionDatabase.left_user}'),
+              Text('${SessionDatabase.left_user?.username}'),
               Text('${johnPoints.toStringAsFixed(2)}'),
             ],
           ),
@@ -179,13 +197,13 @@ class _InGamePageState extends State<InGamePage> {
       child: Column(
         children: [
           Image.asset(
-            'assets/Tbaotbao.png',
+            '${SessionDatabase.right_user?.path}',
             width: 250,
             height: 250,
           ),
           Column(
             children: [
-              Text('${SessionDatabase.right_user}'),
+              Text('${SessionDatabase.right_user?.username}'),
               Text('${lindaPoints.toStringAsFixed(2)}'),
             ],
           ),
@@ -198,7 +216,7 @@ class _InGamePageState extends State<InGamePage> {
       child: Column(
         children: [
           Image.asset(
-            'assets/Tbaotbao.png',
+            '${SessionDatabase.bottom_user?.path}',
             width: 250,
             height: 250,
           ),
@@ -211,18 +229,18 @@ class _InGamePageState extends State<InGamePage> {
         ],
       ),
     ),
-    if (selectedClothingItem != null)
-      Positioned(
-        top: selectedClothingItem!.top_ingame,
-        left: selectedClothingItem!.left_ingame,
-        child: GestureDetector(
-          child: Image.asset(
-            selectedClothingItem!.imagePath,
-            width: selectedClothingItem!.size,
-            height: selectedClothingItem!.size,
-          ),
-        ),
-      ),
+    // if (selectedClothingItem != null)
+    //   Positioned(
+    //     top: selectedClothingItem!.top_ingame,
+    //     left: selectedClothingItem!.left_ingame,
+    //     child: GestureDetector(
+    //       child: Image.asset(
+    //         selectedClothingItem!.imagePath,
+    //         width: selectedClothingItem!.size,
+    //         height: selectedClothingItem!.size,
+    //       ),
+    //     ),
+    //   ),
   ],
         ),
       ),

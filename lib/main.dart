@@ -4,6 +4,7 @@ import 'store_pages/store.dart';
 import 'contacts/contacts.dart';
 import 'stats/stats.dart';
 import 'models/users.dart';
+import 'models/sessions.dart';
 import 'game/start.dart';
 
 void main() {
@@ -251,6 +252,7 @@ class _MenuPageState extends State<MenuPage> {
                   context,
                   MaterialPageRoute(builder: (context) => StartPage()),
                 );
+                await SessionDatabase.getSessionUsers();
                 //await userDb.updateUserContacts(UserDatabase.user_id);
                 //await userDb.updateUserMoney(UserDatabase.user_id, AvatarInventoryDatabase.getMoney());
                 //await userDb.updateUserInventory(UserDatabase.user_id);
@@ -263,6 +265,7 @@ class _MenuPageState extends State<MenuPage> {
                   context,
                   MaterialPageRoute(builder: (context) => AvatarPage()),
                 );
+                await SessionDatabase.getSessionUsers();
                 //await userDb.updateUserContacts(UserDatabase.user_id);
                 //await userDb.updateUserMoney(UserDatabase.user_id, AvatarInventoryDatabase.getMoney());
                 //await userDb.updateUserInventory(UserDatabase.user_id);
@@ -275,6 +278,7 @@ class _MenuPageState extends State<MenuPage> {
                   context,
                   MaterialPageRoute(builder: (context) => StorePage()),
                 );
+                await SessionDatabase.getSessionUsers();
                 //await userDb.updateUserContacts(UserDatabase.user_id);
                 //await userDb.updateUserMoney(UserDatabase.user_id, AvatarInventoryDatabase.getMoney());
                 //await userDb.updateUserInventory(UserDatabase.user_id);
@@ -287,6 +291,7 @@ class _MenuPageState extends State<MenuPage> {
                   context,
                   MaterialPageRoute(builder: (context) => StatsPage()),
                 );
+                await SessionDatabase.getSessionUsers();
                 //await userDb.updateUserContacts(UserDatabase.user_id);
                 //await userDb.updateUserMoney(UserDatabase.user_id, AvatarInventoryDatabase.getMoney());
                 //await userDb.updateUserInventory(UserDatabase.user_id);
@@ -299,6 +304,7 @@ class _MenuPageState extends State<MenuPage> {
                   context,
                   MaterialPageRoute(builder: (context) => ContactsPage()),
                 );
+                await SessionDatabase.getSessionUsers();
                 //await userDb.updateUserContacts(UserDatabase.user_id);
                 //await userDb.updateUserMoney(UserDatabase.user_id, AvatarInventoryDatabase.getMoney());
                 //await userDb.updateUserInventory(UserDatabase.user_id);

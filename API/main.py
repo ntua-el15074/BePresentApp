@@ -21,6 +21,8 @@ api.add_resource(authenticateUser,'/authenticateuser')
 api.add_resource(addUser,'/adduser')
 api.add_resource(getUserContacts,'/getusercontacts')
 api.add_resource(getUserInventory,'/getuserinventory')
+api.add_resource(updateSavedItem, '/updatesaveditem')
+api.add_resource(SetUserState, '/setuserstate')
 
 #Session
 api.add_resource(connectToSession,'/connecttosession')

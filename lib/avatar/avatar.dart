@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bepresent/models/inventory_database.dart';
+import '../models/sessions.dart';
+import '../models/users.dart';
 
 class AvatarPage extends StatefulWidget {
 
@@ -101,12 +103,13 @@ class _AvatarPageState extends State<AvatarPage> {
                       fit: BoxFit.cover,
                     ),
                     subtitle: Text('${item.name}'),
-                    onTap: () {
+                    onTap: () async {
                       setState(() {
                         AvatarInventoryDatabase.saveClothingItem(item);
                         selectedClothingItem = item;
                         print(selectedClothingItem);
                       });
+                      await SessionDatabase.updateSavedItemDB(UserDatabase.user_id, item.name);
                       Navigator.of(context).pop();
                     },
                   ),

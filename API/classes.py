@@ -405,3 +405,59 @@ class getUsersInSession(Resource):
             return {'user_list': user_list},200
         except:
             return {'error':'Something went wrong'},500
+
+
+class updateSavedItem(Resource):
+    @cross_origin()
+    def post(self):
+        user_id = request.form.get("user_id")
+        savedItem = request.form.get("savedItem")
+        print(savedItem)
+
+        if savedItem == 'Clothing 1':
+            savedItem = 'assets/tbao_clothing_1.png'
+        if savedItem == 'Clothing 2':
+            savedItem = 'assets/tbao_clothing_2.png'
+        if savedItem == 'Hat 1':
+            savedItem = 'assets/tbao_hat_1.png'
+        if savedItem == 'Hat 2':
+            savedItem = 'assets/tbao_hat_2.png'
+        if savedItem == 'Snout 1':
+            savedItem = 'assets/tbao_snout_1.png'
+        if savedItem == 'Snout 2':
+            savedItem = 'assets/tbao_snout_2.png'
+        if savedItem == 'Glasses 1':
+            savedItem = 'assets/tbao_glasses_1.png'
+        if savedItem == 'Glasses 2':
+            savedItem = 'assets/tbao_glasses_2.png'
+
+
+
+        query = f'''UPDATE app_user SET image ="{savedItem}" WHERE id = {user_id};'''
+
+        try:
+            cur = db.get_db().cursor()
+            cur.execute(query)
+            db.get_db().commit()
+            cur.close()
+            return {"status":"SavedItem updated"},200
+        except:
+            return {"error":"Could not update savedItem"},500
+
+class SetUserState(Resource):
+    @cross_origin()
+    def post(self):
+        user_id = request.form.get("user_id")
+        state = request.form.get("state")
+
+        query = f'''UPDATE app_user SET userState ="{state}" WHERE id = {user_id};'''
+
+        try:
+            cur = db.get_db().cursor()
+            cur.execute(query)
+            db.get_db().commit()
+            cur.close()
+            return {"status":"State updated"},200
+        except:
+            return {"error":"Could not update state"},500
+

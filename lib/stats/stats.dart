@@ -1,3 +1,4 @@
+import 'package:bepresent/models/sessions.dart';
 import 'package:flutter/material.dart';
 import '../models/inventory_database.dart';
 import 'dart:async';
@@ -51,7 +52,7 @@ class _StatsPageState extends State<StatsPage> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(60),
                               child: Image.asset(
-                                'assets/Tbaotbao.png',
+                                '${SessionDatabase.bottom_user?.path ?? 'assets/Tbaotbao.png'}',
                                 width: 120,
                                 height: 120,
                               ),
@@ -66,7 +67,7 @@ class _StatsPageState extends State<StatsPage> {
                         Positioned(
                           top: 3,
                           child: Text(
-                            'Lucy',
+                            '${SessionDatabase.bottom_user?.username ?? 'Lucy'}',
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
