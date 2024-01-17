@@ -81,6 +81,7 @@ flutter run -d {choose your device here}
 
 ## Video Demo
 Check out the demo of our app:
+
 [![Video Title](https://img.youtube.com/vi/dGQIMsHMzQM/mq2.jpg?sqp=CMDNn60G-oaymwEmCMACELQB8quKqQMa8AEB-AHYBYAC4AOKAgwIABABGHIgaCgjMA8=&rs=AOn4CLAk_JvE-SsM4WNzn-D7X_kGampfNw)](https://www.youtube.com/watch?v=dGQIMsHMzQM "Video Title")
 
 ## Debug APK
