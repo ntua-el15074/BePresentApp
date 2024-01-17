@@ -81,9 +81,8 @@ flutter run -d {choose your device here}
 
 ## Video Demo
 Check out the demo of our app:
-
-[![Video Title](https://img.youtube.com/vi/jRZzNs71zAE/mq2.jpg?sqp=CKyS9awG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYACogWKAgwIABABGGUgZShlMA8=&rs=AOn4CLDq-sNX2ATVlU9GJuol93-enKteFA)](https://www.youtube.com/watch?v=jRZzNs71zAE "Video Title")
-
+https://www.youtube.com/watch?v=dGQIMsHMzQM
+[![Video Title](https://img.youtube.com/vi/dGQIMsHMzQM/mq2.jpg?sqp=CMDNn60G-oaymwEmCMACELQB8quKqQMa8AEB-AHYBYAC4AOKAgwIABABGHIgaCgjMA8=&rs=AOn4CLAk_JvE-SsM4WNzn-D7X_kGampfNw)](https://www.youtube.com/watch?v=dGQIMsHMzQM "Video Title")
 
 ## Debug APK
 This repo contains the Debug APK in the home directory of the repository under the name "app-debug.apk".
