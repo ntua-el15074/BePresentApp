@@ -90,18 +90,3 @@ This repo contains the Debug APK in the home directory of the repository under t
 ## Compatability
 The app is compatible with both Android and iOS.
 
-# Collaborators
-
-<!-- readme: collaborators -start -->
-<table>
-<tr>
-    <td align="center">
-        <a href="https://github.com/ntua-el15074">
-            <img src="https://avatars.githubusercontent.com/u/108369084?v=4" width="100;" alt="ntua-el15074"/>
-            <br />
-            <sub><b>Peter Avgerinos</b></sub>
-        </a>
-    </td></tr>
-</table>
-<!-- readme: collaborators -end -->
-
